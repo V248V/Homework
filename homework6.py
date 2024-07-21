@@ -10,5 +10,7 @@ print(my_dict)
 
 my_set = {1, 1, 2, 2, 'String', 'String', 4.55, 4.55}
 print(my_set)
+my_set.add('New String')
+my_set.add(6561)
 my_set.discard('String')
 print(my_set)
