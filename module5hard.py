@@ -11,6 +11,7 @@ class Video:
     def __init__(self, title, duration, adult_mode=False):
         self.title = title
         self.duration = duration
+        self.adult_mode = adult_mode
 
     def __repr__(self):
         return self.title
@@ -63,19 +64,26 @@ class UrTube:
                 found_videos.append(video)
         return found_videos
 
+    def timer_video(self, video):
+        for i in range(1, video.duration + 1):
+            print(i, end=' ')
+            sleep(1)
+        print('Конец видео')
+
     def watch_video(self, video_name):
         if self.current_user == None:
             print('Войдите в аккаунт, чтобы смотреть видео')
         else:
-            if self.age >= 18:
-                for video in self.videos:
-                    if video.title == video_name:
-                        for i in range(1, video.duration + 1):
-                            print(i, end=' ')
-                            sleep(1)
-                        print('Конец видео')
-            else:
-                print('Вам нет 18 лет, пожалуйста покиньте страницу')
+            for video in self.videos:
+                if video.title == video_name:
+                    if video.adult_mode == True:
+                        if self.age >= 18:
+                            self.timer_video(video)
+                        else:
+                            print('Вам нет 18 лет, пожалуйста покиньте страницу')
+                    else:
+                        self.timer_video(video)
+
 
 if __name__ == '__main__':
     ur = UrTube()
